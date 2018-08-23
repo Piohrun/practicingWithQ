@@ -1,0 +1,25 @@
+
+--------------Server:
+
+\p 4242
+
+logins: (`int$())!`symbol$()
+
+rsvp:{[arg;cb] outArg::arg; if[logins[.z.w]=`;(neg .z.w)(`echo;"Not Logged in!");:"Break"] 
+	;{[x] (neg x) (`echo; ( ((string logins[.z.w]),": ",outArg)))} each (key logins)}
+
+slogin: {[l;cb] show l,`$" is trying to log in"; (neg .z.w) (cb;l,`$" is trying to log in!");
+	 $[logins[.z.w]<>` ;show "Already logged in";[show "Login successful!";logins[.z.w]:l]]}
+
+
+
+
+-----------------Client:
+
+h: hopen `::4242
+
+echo:{show x}
+
+login: {[l] (neg h) (`slogin;l;`echo)}
+
+chat: {[m] (neg h) (`rsvp;m;`echo)}
