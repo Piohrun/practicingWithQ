@@ -5,11 +5,13 @@
 
 logins: (`int$())!`symbol$()
 
-rsvp:{[arg;cb] outArg::arg; if[logins[.z.w]=`;(neg .z.w)(`echo;"Not Logged in!");:"Break"];{[x] (neg x) (`echo; (((string logins[.z.w]),": ",outArg)))} each (key logins)}
+rsvp:{[arg] outArg::arg; if[logins[.z.w]=`;(neg .z.w)(`echo;"Not Logged in!");:"Break"];{[x] (neg x) (`echo; (((string logins[.z.w]),": ",outArg)))} each (key logins)}
 
-slogin: {[l;cb] show l,`$" is trying to log in"; (neg .z.w) (cb;l,`$" is trying to log in!");$[logins[.z.w]<>` ;show "Already logged in";[show "Login successful!";logins[.z.w]:l]]}
+slogin: {[l] show l,`$" is trying to log in"; (neg .z.w) (`echo;l,`$" is trying to log in!");$[logins[.z.w]<>` ;show "Already logged in";[show "Login successful!";logins[.z.w]:l]]}
 
+slogout: {[arg] if[logins[.z.w]=`;(neg .z.w)(`echo;"Not Logged in!");:"Break"];show logins[.z.w],`$" is logging out"; `logins set (logins _ .z.w)}
 
+sdm: {[who;m]if[logins[.z.w]=`;(neg .z.w)(`echo;"Not Logged in!");:"Break"]; show logins[.z.w],`$" is dm'ing user ",string who; (neg logins?who)(`echo;(string logins[.z.w]),"(dm): ",m);(neg .z.w)(`echo;(string logins[.z.w]),"(dm): ",m)}
 
 
 -----------------Client:
@@ -18,11 +20,13 @@ h: hopen `::4242
 
 echo:{show x}
 
-login: {[l] (neg h) (`slogin;l;`echo)}
+login: {[l] (neg h) (`slogin;l)}
 
-chat: {[m] (neg h) (`rsvp;m;`echo)}
+chat: {[m] (neg h) (`rsvp;m)}
 
+logout: {[arg] (neg h) (`slogout;arg)}
 
+dm: {[who;m] (neg h) (`sdm;who;m)}
 
 
 
