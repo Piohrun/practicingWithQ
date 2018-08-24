@@ -6,6 +6,9 @@ f: {[v;c]{(x+y)*y}\[`int$(v>c)]}
 /version with 'greater than' vector already provided
 g: {[v]{(x+y)*y}\[`int$(v)]}
 
+/version from Marta (learned after review)
+f2:{[v]{x y\z}[0;v;v:"f"$v]}
+
 show ""
 show "Functions for exercise 8"
 show "f[v;c] - function for finding N cosecutive True values for the logical condition that the float vector 'v' is greater than a constant value 'c'"

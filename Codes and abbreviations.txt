@@ -1,0 +1,6 @@
+/GM
+
+.z.x - console input
+.z.w - incoming handle
+.z.ts - assign a function to it, to evaluate it every tick
+.z.N - local timespan / time

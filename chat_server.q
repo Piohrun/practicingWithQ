@@ -1,6 +1,6 @@
 /Chat server script
 
-show "Hello there, this is a simple chat server script"
+show "Hello there, this is a simple chat server"
 show "------------------------------------------------"
 
 /Setting up a socket
@@ -8,13 +8,13 @@ show "------------------------------------------------"
 
 logins: (`int$())!`symbol$()
 
-rsvp:{[arg]
-      outArg::arg; if[logins[.z.w]=`;(neg .z.w)(`echo;"Not Logged in!");:"Break"];
-      {[x] (neg x) (`echo; (((string logins[.z.w]),": ",outArg)))} each (key logins)}
+rsvp:{[message]
+      if[logins[.z.w]=`;(neg .z.w)(`echo;"Not Logged in!");:"Break"];
+      {[message;x] (neg x) (`echo; (((string logins[.z.w]),": ",message)))}[message] each (key logins)}
 
-slogin:{[l]
-       show l,`$" is trying to log in"; (neg .z.w) (`echo;l,`$" is trying to log in!");
-       $[logins[.z.w]<>` ;show "Already logged in";[show "Login successful!";logins[.z.w]:l;
+slogin:{[login]
+       show login,`$" is trying to log in"; (neg .z.w) (`echo;login,`$" is trying to log in!");
+       $[logins[.z.w]<>` ;show "Already logged in";[show "Login successful!";logins[.z.w]:login;
        {[x] (neg x) (`echo; (((string logins[.z.w]),": has logged in!")))} each (key logins)]]}
 
 slogout:{[arg]
